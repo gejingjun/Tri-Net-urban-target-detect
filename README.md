@@ -82,7 +82,7 @@ python scripts/run_all_experiments.py --set paper          # everything
 | Dataset | Size | Get |
 |---|---|---|
 | **UrbanTraffic-3M** (new) | 3,000 RGB-IR-Depth triplets, 12 classes | Baidu Pan <https://pan.baidu.com/s/17luVd99FGrdL4W5LgMvBKg?pwd=xww8> (code `xww8`) |
-| **RGBDT500** (public) | 203,700 triplets, ≥66 classes | official RGBDT release; Baidu mirror code `j3ek` |
+| **RGBDT500** (public) | 203,700 triplets, ≥66 classes | official RGBDT release; Baidu Pan <https://pan.baidu.com/s/1M1_HF977Hd_-5P-vUWQebg?pwd=j3ek> (code `j3ek`) |
 | **DroneVehicle** (public) | 26,970 RGB-IR pairs, 5 classes | <https://github.com/zhaoxiangyu97/DroneVehicle> + SGM depth via `scripts/make_sgm_depth.py` |
 
 Place extracted folders under `data/` in the layout documented in
