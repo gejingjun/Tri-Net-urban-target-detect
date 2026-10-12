@@ -1,0 +1,5 @@
+base: base.yaml
+name: vade00
+model:
+  use_vade_a: false
+  use_vade_b: false

@@ -1,0 +1,4 @@
+base: base.yaml
+name: ours_wo_vade
+model:
+  use_vade_b: false

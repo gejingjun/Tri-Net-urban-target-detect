@@ -1,0 +1,17 @@
+# TFG-Net runtime dependencies (pinned to the versions used in the paper).
+# Paper: PyTorch 2.1 + Ultralytics 8.1 on RTX 4090.
+# Verified on: Python 3.10-3.13 / torch 2.1.2+cu121 (see docs/ENVIRONMENT.md).
+torch>=2.1.0,<3.0
+torchvision>=0.16.0
+numpy>=1.24,<3.0
+opencv-python>=4.8.0
+Pillow>=10.0.0
+PyYAML>=6.0
+tqdm>=4.65
+matplotlib>=3.7
+pycocotools>=2.0.7
+thop>=0.1.1          # FLOPs counting (Table "Efficiency Analysis")
+ultralytics>=8.1.0,<8.5   # C3k2 / CBS / DFL components (paper used 8.1)
+
+# Dev / test (optional: pip install -r requirements-dev.txt)
+pytest>=7.4

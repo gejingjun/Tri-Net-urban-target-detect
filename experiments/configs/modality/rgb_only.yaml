@@ -1,0 +1,5 @@
+base: base.yaml
+name: modality_rgb_only
+model:
+  modalities:
+  - rgb

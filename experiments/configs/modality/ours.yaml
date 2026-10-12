@@ -1,0 +1,7 @@
+base: base.yaml
+name: modality_ours
+model:
+  modalities:
+  - rgb
+  - ir
+  - depth

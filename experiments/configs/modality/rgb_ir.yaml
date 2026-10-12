@@ -1,0 +1,6 @@
+base: base.yaml
+name: modality_rgb_ir
+model:
+  modalities:
+  - rgb
+  - ir

@@ -1,0 +1,11 @@
+base: base.yaml
+name: abl01
+model:
+  use_sdfe: true
+  use_vade_a: false
+  use_vade_b: false
+  use_rugate: false
+  use_depth: false
+  modalities:
+  - rgb
+  - ir

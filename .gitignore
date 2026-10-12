@@ -1,0 +1,65 @@
+# =============================================================================
+# TFG-Net / Tri-Net-urban-target-detect
+# https://github.com/gejingjun/Tri-Net-urban-target-detect
+# =============================================================================
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+.installed.cfg
+*.egg
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.ipynb_checkpoints/
+
+# --- Virtual envs ---
+.venv/
+venv/
+env/
+environment/
+
+# --- Data & weights (large; use Git LFS or download scripts) ---
+data/raw/
+data/urbantraffic3m/
+data/rgbdt500/
+data/dronevehicle/
+data/fake/
+data/processed/
+*.pt
+*.pth
+*.onnx
+*.engine
+*.npz
+*.npy
+*.zip
+*.tar.gz
+checkpoints/*.pt
+checkpoints/*.pth
+!checkpoints/README.md
+
+# --- Experiment outputs ---
+runs/
+experiments/logs/*
+!experiments/logs/.gitkeep
+results/figures/*.png
+!results/figures/.gitkeep
+*.log
+wandb/
+mlruns/
+
+# --- Editors / OS ---
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db

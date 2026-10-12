@@ -1,0 +1,4 @@
+base: base.yaml
+name: degradation_eval
+comment: Run scripts/eval.py --degradation {depth_mask:0.3,depth_mask:0.7,depth_remove,ir_remove,rgb_remove,ir_mask:0.5}
+  plus the no-VADE-PhaseB variant via experiments/configs/sota/ours_wo_vade_gating.yaml

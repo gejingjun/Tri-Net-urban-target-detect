@@ -1,0 +1,6 @@
+base: base.yaml
+name: modality_rgb_depth
+model:
+  modalities:
+  - rgb
+  - depth

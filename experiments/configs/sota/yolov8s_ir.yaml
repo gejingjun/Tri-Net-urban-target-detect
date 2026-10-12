@@ -1,0 +1,10 @@
+base: base.yaml
+name: yolov8s_ir
+model:
+  modalities:
+  - ir
+  use_depth: false
+  use_sdfe: false
+  use_vade_a: false
+  use_vade_b: false
+  use_rugate: false

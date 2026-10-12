@@ -1,0 +1,12 @@
+base: base.yaml
+name: cft_rgb_ir
+model:
+  use_depth: false
+  use_sdfe: false
+  use_vade_b: false
+  use_rugate: false
+  modalities:
+  - rgb
+  - ir
+comment: CFT-style cross-attention baseline approximated by fused bimodal MSGDFF without
+  SDFE/VADE (see docs/REPRODUCE.md)

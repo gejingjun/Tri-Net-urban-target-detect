@@ -1,0 +1,6 @@
+base: base.yaml
+name: vade02
+model:
+  use_vade_a: false
+  use_vade_b: true
+  depth_encoding_mode: raw

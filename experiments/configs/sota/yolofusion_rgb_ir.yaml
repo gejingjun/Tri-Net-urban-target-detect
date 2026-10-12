@@ -1,0 +1,10 @@
+base: base.yaml
+name: yolofusion_rgb_ir
+model:
+  use_depth: false
+  use_sdfe: false
+  use_vade_b: false
+  use_rugate: false
+  modalities:
+  - rgb
+  - ir

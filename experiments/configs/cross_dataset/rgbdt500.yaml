@@ -1,0 +1,8 @@
+base: base.yaml
+name: rgbdt500
+model: {}
+data:
+  root: data/rgbdt500
+  nc: 66
+  train_split: train
+  val_split: test

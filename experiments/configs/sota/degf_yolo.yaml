@@ -1,0 +1,11 @@
+base: base.yaml
+name: degf_yolo
+model:
+  degf_style: true
+  use_depth: false
+  use_vade_a: false
+  use_vade_b: false
+  use_rugate: false
+  modalities:
+  - rgb
+  - ir

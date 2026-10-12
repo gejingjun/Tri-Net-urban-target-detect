@@ -1,0 +1,3 @@
+base: base.yaml
+name: tfgnet_full
+comment: Paper headline model (Table 7, ours)

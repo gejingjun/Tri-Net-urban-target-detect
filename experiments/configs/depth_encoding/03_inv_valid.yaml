@@ -1,0 +1,5 @@
+base: base.yaml
+name: enc_inv_valid
+model:
+  depth_encoding_mode: inv_valid
+  use_vade_a: false

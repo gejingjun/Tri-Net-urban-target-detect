@@ -1,0 +1,4 @@
+base: base.yaml
+name: early_fusion
+model:
+  naive_early_fusion: true

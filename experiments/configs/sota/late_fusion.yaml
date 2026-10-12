@@ -1,0 +1,6 @@
+base: base.yaml
+name: late_fusion
+model:
+  late_fusion: true
+eval:
+  protocol: ensemble3

@@ -1,0 +1,22 @@
+name: tfgnet
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
+  - numpy>=1.24
+  - pyyaml>=6.0
+  - tqdm
+  - matplotlib-base
+  - pillow>=10.0
+  - opencv
+  - pip:
+      - torch>=2.1.0,<3.0
+      - torchvision>=0.16.0
+      - opencv-python>=4.8.0
+      - pycocotools>=2.0.7
+      - thop>=0.1.1
+      - ultralytics>=8.1.0,<8.5
+      - pytest>=7.4

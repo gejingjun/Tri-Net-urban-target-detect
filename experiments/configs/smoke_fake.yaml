@@ -1,0 +1,14 @@
+base: base.yaml
+name: smoke_fake
+data:
+  root: data/fake
+train:
+  epochs: 2
+  batch: 2
+  warmup_epochs: 0
+  workers: 0
+  amp: false
+  seeds:
+  - 2026
+model:
+  rgb_pretrained: null

@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use TFG-Net in your research, please cite the following paper."
+title: "TFG-Net: Tri-Modal Feature-Guided Fusion with Robust Uncertainty Gating for Urban Object Detection in Degraded Environments"
+type: article
+authors:
+  - name: "First Author"
+  - name: "Second Author"
+  - name: "Third Author"
+date-released: "2026-10-11"
+repository-code: "https://github.com/gejingjun/Tri-Net-urban-target-detect"
+url: "https://github.com/gejingjun/Tri-Net-urban-target-detect"
+keywords:
+  - tri-modal object detection
+  - RGB-Infrared-Depth
+  - multimodal fusion
+  - YOLO
+license: MIT
+preferred-citation:
+  type: article
+  title: "TFG-Net: Tri-Modal Feature-Guided Fusion with Robust Uncertainty Gating for Urban Object Detection in Degraded Environments"
+  journal: Pattern Recognition
+  year: 2026
+  authors:
+    - name: "First Author"
+    - name: "Second Author"
+    - name: "Third Author"

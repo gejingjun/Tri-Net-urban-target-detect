@@ -1,0 +1,8 @@
+base: base.yaml
+name: abl02
+model:
+  use_sdfe: true
+  use_vade_a: true
+  use_vade_b: true
+  use_rugate: false
+  use_depth: true

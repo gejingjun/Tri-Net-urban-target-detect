@@ -1,0 +1,5 @@
+base: base.yaml
+name: enc_raw
+model:
+  depth_encoding_mode: raw
+  use_vade_a: false

@@ -1,0 +1,14 @@
+name: tfgnet
+model: {}
+data:
+  root: data/urbantraffic3m
+  train_split: train
+  val_split: val
+train:
+  epochs: 300
+  batch: 16
+  seeds:
+  - 2026
+  - 3407
+  - 7102
+  save_dir: runs

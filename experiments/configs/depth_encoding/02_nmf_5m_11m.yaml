@@ -1,0 +1,8 @@
+base: base.yaml
+name: enc_5_11
+model:
+  depth_encoding_mode: near_mid_far
+  use_vade_a: false
+  fixed_edges_mm:
+  - 5000.0
+  - 11000.0

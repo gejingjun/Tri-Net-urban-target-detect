@@ -1,0 +1,24 @@
+# One-command containerised reproduction (training on GPU 0).
+# Usage:
+#   docker compose build
+#   docker compose run --rm tfgnet python scripts/train.py --config experiments/configs/tfgnet_urbantraffic3m.yaml
+#   docker compose run --rm tfgnet bash scripts/run_all_experiments.py   # full reproduction
+services:
+  tfgnet:
+    build: .
+    image: tfgnet:latest
+    container_name: tfgnet
+    working_dir: /workspace
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+    volumes:
+      - ./data:/workspace/data          # keep datasets on the host
+      - ./runs:/workspace/runs          # training outputs
+      - ./checkpoints:/workspace/checkpoints
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

@@ -1,0 +1,6 @@
+base: base.yaml
+name: modality_ir_depth
+model:
+  modalities:
+  - ir
+  - depth

@@ -1,0 +1,8 @@
+base: base.yaml
+name: dronevehicle_0shot
+data:
+  root: data/dronevehicle
+  nc: 5
+  train_split: train
+  val_split: val
+zero_shot_from: runs/tfgnet_full_seed2026/best.pt

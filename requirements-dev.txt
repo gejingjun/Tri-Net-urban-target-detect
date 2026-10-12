@@ -1,0 +1,2 @@
+# Dev/test extras (on top of requirements.txt)
+pytest>=7.4
