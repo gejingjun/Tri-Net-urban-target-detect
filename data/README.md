@@ -31,9 +31,9 @@ writes `results/urbantraffic3m.sha256`.
 
 ## 2. RGBDT500 (public, 203,700 triplets, ≥66 categories)
 
-- Paper-listed mirror: Baidu Pan
-  <https://pan.baidu.com/s/1M1_HF977Hd_-5P-vUWQebg?pwd=j3ek> — code `j3ek`
-  (direct link in the paper includes the file-list view anchor)
+- Paper-listed mirror (official download link): Baidu Pan
+  <https://pan.baidu.com/s/1M1_HF977Hd_-5P-vUWQebg?pwd=j3ek#list/path=%2F&vmode=list>
+  — extraction code `j3ek`
 - Official source: RGBDT500 / RGBDT dataset by Zhu et al., NeurIPS 2026
   ("Collaborating vision, depth, and thermal signals for multi-modal
   tracking: Dataset and algorithm") — see <https://github.com/RGBDT>
