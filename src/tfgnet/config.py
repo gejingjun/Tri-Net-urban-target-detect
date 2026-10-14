@@ -68,6 +68,7 @@ class DataConfig:
         "car", "ball", "light", "garbagecan", "uav", "tricycle"])
     depth_dtype: str = "auto"        # auto: metric uint16 | pseudo uint8 (Eq.14)
     max_images: int | None = None    # optional subset cap (smoke on real data)
+    val_max_images: int | None = None  # separate cap for the eval split
     augment: dict = field(default_factory=lambda: {
         "mosaic": True, "mixup": 0.15, "hflip": 0.5, "hsv_h": 0.015,
         "hsv_s": 0.7, "hsv_v": 0.4})
@@ -88,6 +89,8 @@ class TrainConfig:
     seeds: List[int] = field(default_factory=lambda: [2026, 3407, 7102])
     device: str = "auto"
     workers: int = 4
+    accum: int = 1          # grad accumulation; batch*accum = effective batch
+    eval_every: int = 10
     amp: bool = True
     grad_clip: float = 10.0
     save_dir: str = "runs"

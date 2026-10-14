@@ -1,0 +1,20 @@
+base: ../base.yaml
+# VRAM probe: batch 8 + accum 2 on the full 2000-image train split, 4 epochs.
+# Confirms the 12 GB host fits the paper-equivalent effective batch 16 and
+# measures real epoch time before the full 300-epoch launch.
+name: tfgnet_vram_probe
+model:
+  rgb_pretrained: null
+data:
+  root: data/urbantraffic3m
+  train_split: train
+  val_split: test
+  val_max_images: 64    # tiny val eval for the probe (train stays full 2000)
+train:
+  epochs: 4
+  batch: 8
+  accum: 2
+  warmup_epochs: 2
+  workers: 4
+  eval_every: 4
+  amp: true

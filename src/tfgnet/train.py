@@ -53,7 +53,9 @@ class Trainer:
         self.val_ds = TriModalDataset(cfg.data.root, cfg.data.val_split,
                                       cfg.data.img_size, self.encoder, None,
                                       nc=cfg.data.nc,
-                                      max_images=cfg.data.max_images)
+                                      max_images=cfg.data.val_max_images
+                                      if cfg.data.val_max_images is not None
+                                      else cfg.data.max_images)
         self.train_ds.bind_mosaic_pool()
         self.train_ds.fit_encoder()
         self.model = build_model(cfg).to(self.device)
@@ -150,6 +152,10 @@ class Trainer:
         self.model.train()
         dl = self.loader()
         best = -1.0
+        accum = max(1, int(getattr(self.cfg.train, "accum", 1)))
+        ev = max(1, int(getattr(self.cfg.train, "eval_every", 10)))
+        lr = self.cfg.train.lr0
+        self.opt.zero_grad(set_to_none=True)
         for ep in range(self.epochs):
             t0 = time.time()
             tot = 0.0
@@ -157,26 +163,29 @@ class Trainer:
                 lr = self.lr_at(ep, it, len(dl))
                 for gp in self.opt.param_groups:
                     gp["lr"] = lr
-                self.opt.zero_grad(set_to_none=True)
                 if self.scaler is not None:
                     with torch.autocast("cuda"):
                         loss, parts = self.train_step(batch)
-                    self.scaler.scale(loss).backward()
-                    self.scaler.unscale_(self.opt)
-                    torch.nn.utils.clip_grad_norm_(self.model.parameters(),
-                                                   self.cfg.train.grad_clip)
-                    self.scaler.step(self.opt)
-                    self.scaler.update()
+                    self.scaler.scale(loss / accum).backward()
+                    if (it + 1) % accum == 0 or it == len(dl) - 1:
+                        self.scaler.unscale_(self.opt)
+                        torch.nn.utils.clip_grad_norm_(self.model.parameters(),
+                                                       self.cfg.train.grad_clip)
+                        self.scaler.step(self.opt)
+                        self.scaler.update()
+                        self.opt.zero_grad(set_to_none=True)
                 else:
                     loss, parts = self.train_step(batch)
-                    loss.backward()
-                    torch.nn.utils.clip_grad_norm_(self.model.parameters(),
-                                                   self.cfg.train.grad_clip)
-                    self.opt.step()
-                tot += float(loss.detach())
+                    (loss / accum).backward()
+                    if (it + 1) % accum == 0 or it == len(dl) - 1:
+                        torch.nn.utils.clip_grad_norm_(self.model.parameters(),
+                                                       self.cfg.train.grad_clip)
+                        self.opt.step()
+                        self.opt.zero_grad(set_to_none=True)
+                tot += float(loss.detach()) / accum
             msg = f"epoch {ep+1}/{self.epochs} loss {tot/max(len(dl),1):.4f} lr {lr:.5f} {time.time()-t0:.1f}s"
             self.log.info(msg)
-            if (ep + 1) % 10 == 0 or ep == self.epochs - 1:
+            if (ep + 1) % ev == 0 or ep == self.epochs - 1:
                 res = self.evaluate()
                 self.log.info("val mAP50 %.2f mAP50-95 %.2f AP_S %s",
                               res["mAP50"], res["mAP50_95"], res["AP_S"])

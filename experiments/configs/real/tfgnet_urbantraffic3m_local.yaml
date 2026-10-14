@@ -1,8 +1,9 @@
 base: ../base.yaml
 # REAL paper-protocol run on the LOCAL UrbanTraffic-3M copy.
 # 2000 train / 1000 test triplets (competition release; no separate val split).
-# Paper protocol: 300 epochs, batch 16 (RTX 4090; use batch 8 + accumulation
-# on 16 GB cards), seeds {2026, 3407, 7102}.
+# Paper protocol: 300 epochs, effective batch 16, seeds {2026, 3407, 7102}.
+# Host GPU here is 12 GB (RTX 2080 SUPER) instead of the paper's 4090 24 GB:
+# batch 8 + grad accumulation 2 => the same effective batch 16.
 name: tfgnet_urbantraffic3m_local
 model:
   rgb_pretrained: checkpoints/yolov8s.pt      # optional COCO init
@@ -12,7 +13,9 @@ data:
   val_split: test
 train:
   epochs: 300
-  batch: 16
+  batch: 8
+  accum: 2
   warmup_epochs: 10
   seeds: [2026, 3407, 7102]
   workers: 4
+  eval_every: 10
