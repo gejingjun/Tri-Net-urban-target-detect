@@ -70,6 +70,9 @@ class Trainer:
         self.scaler = torch.amp.GradScaler("cuda") if cfg.train.amp and self.device.type == "cuda" else None
         self.run_dir = Path(cfg.train.save_dir) / run_name
         self.run_dir.mkdir(parents=True, exist_ok=True)
+        # persist training log to run_dir so long background runs stay readable
+        self.log = get_logger(f"tfgnet.train.{run_name}",
+                              logfile=str(self.run_dir / "train.log"))
         if resume:
             self.load(resume)
 
