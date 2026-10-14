@@ -200,14 +200,15 @@ class AuxiliaryLosses(nn.Module):
         super().__init__()
         self.lv, self.ls = lambda_valid, lambda_scene
 
-    def validity(self, g_pixel, d_raw_valid):
-        """g_pixel (B,1,Hf,Wf); d_raw_valid (B,1,H,W) Eq.9 indicator, resized."""
-        if g_pixel.shape[-2:] != d_raw_valid.shape[-2:]:
-            d = F.interpolate(d_raw_valid, size=g_pixel.shape[-2:],
+    def validity(self, gate_logits, d_raw_valid):
+        """L_valid = BCE(g_pixel, D_valid) (Eq. 9/32), computed as
+        BCEWithLogits(gate_logits, D_valid) — AMP/autocast-safe."""
+        if gate_logits.shape[-2:] != d_raw_valid.shape[-2:]:
+            d = F.interpolate(d_raw_valid, size=gate_logits.shape[-2:],
                               mode="nearest")
         else:
             d = d_raw_valid
-        return F.binary_cross_entropy(g_pixel.clamp(1e-6, 1 - 1e-6), d) * self.lv
+        return F.binary_cross_entropy_with_logits(gate_logits, d) * self.lv
 
     def scene(self, scene_probs, scene_labels):
         if scene_labels is None or scene_labels.min() < 0:

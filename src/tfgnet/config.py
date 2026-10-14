@@ -61,10 +61,13 @@ class DataConfig:
     val_split: str = "val"
     img_size: int = 640
     nc: int = 12
+    # Competition-official id order (matches 初赛数据集 labels/*.txt);
+    # paper Sec. 4.1.1 lists the same 12 classes in a different display order.
     names: List[str] = field(default_factory=lambda: [
-        "person", "animal", "car", "light", "sign", "bicycle",
-        "seat", "garbagecan", "uav", "boat", "ball", "tricycle"])
+        "person", "boat", "animal", "seat", "sign", "bicycle",
+        "car", "ball", "light", "garbagecan", "uav", "tricycle"])
     depth_dtype: str = "auto"        # auto: metric uint16 | pseudo uint8 (Eq.14)
+    max_images: int | None = None    # optional subset cap (smoke on real data)
     augment: dict = field(default_factory=lambda: {
         "mosaic": True, "mixup": 0.15, "hflip": 0.5, "hsv_h": 0.015,
         "hsv_s": 0.7, "hsv_v": 0.4})

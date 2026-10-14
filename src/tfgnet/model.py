@@ -107,7 +107,7 @@ class TFGNet(nn.Module):
         xd = self.dep_bb(e_dep) if self.dep_bb is not None else \
             tuple(torch.zeros_like(t) for t in xv)
 
-        outs_l, aux = [], {"g_pixel": None, "scene": None,
+        outs_l, aux = [], {"g_pixel": None, "gate_logits": None, "scene": None,
                            "w_router": [], "m_deg": [], "m_con": []}
         for l, (v, i, d) in enumerate(zip(xv, xi, xd)):
             if self.sdfe is not None:
@@ -120,6 +120,7 @@ class TFGNet(nn.Module):
             x_dg = self.vade_gate(d, e_dep) if self.vade_gate is not None else d
             if self.vade_gate is not None and l == 0:
                 aux["g_pixel"] = self.vade_gate.last_g_pixel
+                aux["gate_logits"] = self.vade_gate.last_gate_logits
             fused = self.msgdff[l](f_v, f_i, x_dg)
             aux["w_router"].append(fused["w"])
             if self.rugate is not None:

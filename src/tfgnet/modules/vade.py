@@ -141,6 +141,7 @@ class VADEGate(nn.Module):
         self.region_k = region_k
         self.p_drop = p_drop
         self.last_g_pixel: torch.Tensor | None = None  # for L_valid supervision
+        self.last_gate_logits: torch.Tensor | None = None
         self.last_target: torch.Tensor | None = None   # D_valid downsampled
 
     def forward(self, x_dep: torch.Tensor, e_dep: torch.Tensor) -> torch.Tensor:
@@ -159,7 +160,8 @@ class VADEGate(nn.Module):
             drop = torch.rand(x_dep.shape[0], 1, 1, 1, device=e.device) < self.p_drop
             e = torch.where(drop, torch.zeros_like(e), e)
         # Eq. 15
-        g_pixel = torch.sigmoid(self.proj(e))
+        gate_logits = self.proj(e)
+        g_pixel = torch.sigmoid(gate_logits)
         # Eq. 16 (keep gate in [0,1]); resize back in case padding shifts the grid
         g_region = F.avg_pool2d(g_pixel, self.region_k, stride=1,
                                 padding=self.region_k // 2,
@@ -172,5 +174,6 @@ class VADEGate(nn.Module):
         if drop is not None:
             x_gated = torch.where(drop, torch.zeros_like(x_gated), x_gated)
         self.last_g_pixel = g_pixel
+        self.last_gate_logits = gate_logits
         self.last_target = (e[:, :1] > 0.5).float() if e.shape[1] >= 1 else None
         return x_gated

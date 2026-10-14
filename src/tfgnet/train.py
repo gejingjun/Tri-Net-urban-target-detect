@@ -48,10 +48,12 @@ class Trainer:
                                    if k in ("mosaic", "mixup", "hflip", "hsv_h", "hsv_s", "hsv_v")})
         self.train_ds = TriModalDataset(cfg.data.root, cfg.data.train_split,
                                         cfg.data.img_size, self.encoder, aug,
-                                        nc=cfg.data.nc)
+                                        nc=cfg.data.nc,
+                                        max_images=cfg.data.max_images)
         self.val_ds = TriModalDataset(cfg.data.root, cfg.data.val_split,
                                       cfg.data.img_size, self.encoder, None,
-                                      nc=cfg.data.nc)
+                                      nc=cfg.data.nc,
+                                      max_images=cfg.data.max_images)
         self.train_ds.bind_mosaic_pool()
         self.train_ds.fit_encoder()
         self.model = build_model(cfg).to(self.device)
@@ -95,8 +97,8 @@ class Trainer:
         losses = self.det_loss(outs, targets)
         total = losses["loss_cls"] + losses["loss_box"] + losses["loss_dfl"]
         # L_valid
-        if isinstance(m, TFGNet) and aux.get("g_pixel") is not None:
-            total = total + self.aux_loss.validity(aux["g_pixel"],
+        if isinstance(m, TFGNet) and aux.get("gate_logits") is not None:
+            total = total + self.aux_loss.validity(aux["gate_logits"],
                                                    batch["valid"].to(self.device))
             if aux.get("scene") is not None and batch.get("condition") is not None:
                 scene_ids = torch.tensor(

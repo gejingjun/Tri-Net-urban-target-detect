@@ -1,0 +1,17 @@
+base: ../base.yaml
+# Real-data SMOKE run on the LOCAL UrbanTraffic-3M copy (2000 train / 1000 test).
+# Fast pipeline check on real images: 2 epochs x ~240 imgs. Metrics are NOT
+# paper numbers (undertrained on purpose).
+name: tfgnet_local_smoke
+model:
+  rgb_pretrained: null
+data:
+  root: data/urbantraffic3m
+  train_split: train
+  val_split: test        # local copy ships test only (1000 triplets + labels)
+  max_images: 240
+train:
+  epochs: 2
+  batch: 4
+  warmup_epochs: 0
+  workers: 2
